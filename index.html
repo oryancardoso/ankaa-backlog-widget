@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <link rel="icon" type="image/png" href="/public/favicon.png">
@@ -76,49 +76,24 @@
       transition: all 0.3s ease;
     }
 
-     input:focus {
+    input:focus {
       outline: none;
       border-color: rgba(57, 255, 20, 0.5);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
 
     .clear-button {
-.clear-button {
       position: absolute;
-      right: 300px;
+      right: 215px; /* Ajuste fino da posição do 'x' */
       top: 50%;
       transform: translateY(-50%);
-      background: transparent; 
+      background: transparent;
       border: none;
-      color: #FF007F;
-      font-family: sans-serif;
-      font-size: 22px;
-      font-weight: bold;
+      color: #888;
+      font-size: 20px;
       cursor: pointer;
       padding: 0 10px;
-      display: none;
-      
-      background-color: #FF007F;
-      color: #FFFFFF;
-      height: 24px;
-      width: 24px;
-      border-radius: 50%;
-      
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 24px;
-      text-align: center;
-      transition: all 0.2s ease;
-      line-height: 1;
-      backdrop-filter: none;
-    }
-    
-
-    .clear-button:hover {
-      transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 5px #FF007F);
-      transform: translateY(-50%) scale(1.1);
-      filter: brightness(1.2);
+      display: none; /* Começa escondido */
     }
 
     button { 
@@ -138,7 +113,7 @@
       transition: all 0.3s ease;
       text-transform: uppercase;
     }
-
+    
     #searchButton { border-radius: 0; }
     #pinterestButton { border-radius: 0; }
     #copyButton { border-radius: 0 50px 50px 0; }
@@ -159,7 +134,7 @@
       width: 200px;
       height: 200px;
     }
-
+    
     footer {
       margin-top: 50px;
       font-size: 0.9em;
@@ -176,27 +151,18 @@
     footer a:hover {
       color: #FF007F;
     }
-
-    .clear-button::before {
-      background: none;
-    }
-
-    .clear-button:hover {
-      transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 8px #FF007F);
-    }
 </style>
 </head>
 <body>
   <div class="container">
-
+    
     <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
       <img src="/public/logo.png" alt="Logo Ankaa Games" class="logo">
     </a>
-
+    
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
     <p>Digite o nome de um jogo para ver o tempo de jogo, copiar o nome ou obter o ícone.</p>
-
+    
     <div class="search-wrapper">
       <div class="search-container">
         <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
@@ -206,7 +172,7 @@
       </div>
       <button class="clear-button" id="clearButton">&times;</button>
     </div>
-
+    
     <footer>
       <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
     </footer>
@@ -227,7 +193,7 @@
       const searchUrl = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
       window.open(searchUrl, '_blank');
     };
-
+    
     const searchOnPinterest = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
@@ -246,7 +212,7 @@
         }, 1500);
       });
     };
-
+    
     const placeholders = [
       'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
       'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
@@ -260,12 +226,12 @@
       'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
-
+    
     const changePlaceholder = () => {
       gameInput.placeholder = placeholders[placeholderIndex];
       placeholderIndex = (placeholderIndex + 1) % placeholders.length;
     };
-
+    
     const toggleClearButton = () => {
       if (gameInput.value) {
         clearButton.style.display = 'block';
@@ -277,16 +243,16 @@
     searchButton.addEventListener('click', searchOnHltb);
     pinterestButton.addEventListener('click', searchOnPinterest);
     copyButton.addEventListener('click', copyGameName);
-
+    
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
             searchOnHltb();
         }
         toggleClearButton();
     });
-
+    
     gameInput.addEventListener('input', toggleClearButton);
-
+    
     clearButton.addEventListener('click', () => {
       gameInput.value = '';
       gameInput.focus();
@@ -302,7 +268,7 @@
         button.style.setProperty('--mouse-y', `${y}px`);
       });
     });
-
+    
     gameInput.focus();
     setInterval(changePlaceholder, 4000);
     toggleClearButton();
