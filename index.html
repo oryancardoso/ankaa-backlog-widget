@@ -78,22 +78,31 @@
 
     input:focus {
       outline: none;
-      border-color: rgba(57, 255, 20, 0.5);
-      box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+      border-color: rgba(255, 0, 127, 0.3);
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
     }
 
-    .clear-button {
+     .clear-button {
       position: absolute;
-      right: 215px; /* Ajuste fino da posição do 'x' */
+      right: 300px;
       top: 50%;
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: #888;
-      font-size: 20px;
+      color: #FF007F;
+      font-family: sans-serif;
+      font-size: 22px;
+      font-weight: bold;
       cursor: pointer;
-      padding: 0 10px;
-      display: none; /* Começa escondido */
+      padding: 0 15px;
+      display: none;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+    
+    .clear-button:hover {
+      transform: translateY(-50%) scale(1.2);
+      filter: drop-shadow(0 0 5px #FF007F);
     }
 
     button { 
