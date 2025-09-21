@@ -97,26 +97,25 @@
       text-transform: uppercase;
     }
     
-    #searchButton { 
-      border-radius: 0; 
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
+     .search-container:focus-within {
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.5); /* BRILHO ROSA */
+      border-color: rgba(255, 0, 127, 0.4);
     }
-    
-    #pinterestButton {
-      border-radius: 0;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    #copyButton {
-      border-radius: 0 50px 50px 0;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
+
     button:hover {
       transform: scale(1.05);
-      background-color: rgba(255, 0, 127, 0.1);
+      background-color: rgba(255, 255, 255, 0.05); /* Um fundo sutil no hover */
       color: #FFFFFF;
-      filter: drop-shadow(0 0 10px #FF007F);
+    }
+    
+    #searchButton:hover { 
+      box-shadow: 0 0 20px rgba(141, 43, 226, 0.6); /* ROSA/ROXO */
+    }
+    #pinterestButton:hover { 
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.6); /* VERDE/CIANO */
+    }
+    #copyButton:hover { 
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* VERDE/CIANO */
     }
     
     footer {
