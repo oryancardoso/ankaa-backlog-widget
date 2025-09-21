@@ -109,4 +109,67 @@
     }
 
     footer a {
-      color: #
+      color: #aaa;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #FF007F;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
+      <img src="/public/logo.png" alt="Logo Ankaa Games" class="logo">
+    </a>
+    
+    <h1>BUSCADOR DE TEMPO DE JOGO</h1>
+    <p>Digite o nome do jogo e clique em buscar para abrir os resultados no site HowLongToBeat.</p>
+    
+    <div class="search-container">
+      <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
+      <button id="searchButton">Tempo</button>
+      <button id="pinterestButton">Ícone</button>
+    </div>
+    
+    <footer>
+      <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    const gameInput = document.getElementById('gameInput');
+    const searchButton = document.getElementById('searchButton');
+    const pinterestButton = document.getElementById('pinterestButton');
+
+    const searchOnHltb = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchUrl = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
+      window.open(searchUrl, '_blank');
+    };
+    
+    const searchOnPinterest = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} game cover art`;
+      const searchUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    searchButton.addEventListener('click', searchOnHltb);
+    pinterestButton.addEventListener('click', searchOnPinterest);
+    
+    gameInput.addEventListener('keyup', (event) => {
+        if (event.key === "Enter") {
+            searchOnHltb();
+        }
+    });
+  </script>
+</body>
+</html>
