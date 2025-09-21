@@ -59,7 +59,7 @@
     }
 
     input { 
-      width: 65%;
+      flex-grow: 1;
       padding: 15px 25px; 
       border-radius: 50px 0 0 50px; 
       border: none;
@@ -75,7 +75,8 @@
       box-shadow: 0 4px 20px #39FF1466;
     }
 
-    .button-group button { 
+    button { 
+      flex-shrink: 0;
       padding: 15px 25px; 
       border: none; 
       color: #FFFFFF;
@@ -90,11 +91,6 @@
       background-image: linear-gradient(45deg, #FF007F, #8D2BE2); 
       box-shadow: 0 4px 15px rgba(141, 43, 226, 0.3);
     }
-
-    #searchButton:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 25px rgba(255, 0, 127, 0.5);
-    }
     
     #pinterestButton {
       border-radius: 0 50px 50px 0;
@@ -102,11 +98,10 @@
       box-shadow: 0 4px 15px rgba(230, 0, 35, 0.3);
     }
     
-    #pinterestButton:hover {
+    #searchButton:hover, #pinterestButton:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 25px rgba(230, 0, 35, 0.5);
     }
-
+    
     footer {
       margin-top: 50px;
       font-size: 0.9em;
@@ -137,10 +132,8 @@
     
     <div class="search-container">
       <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
-      <div class="button-group">
-        <button id="searchButton">Tempo</button>
-        <button id="pinterestButton">Ícone</button>
-      </div>
+      <button id="searchButton">Tempo</button>
+      <button id="pinterestButton">Ícone</button>
     </div>
     
     <footer>
