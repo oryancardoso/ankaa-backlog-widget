@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ankaa Games - Ferramentas</title>
-  <style>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
     body { 
@@ -65,7 +65,7 @@
 
     input { 
       flex-grow: 1;
-      padding: 15px 50px 15px 25px; 
+      padding: 15px 40px 15px 25px; /* Padding direito AUMENTADO para dar espaço ao 'x' */
       border-radius: 50px 0 0 50px; 
       border: 1px solid rgba(255, 255, 255, 0.1);
       background-color: rgba(255, 255, 255, 0.05);
@@ -76,38 +76,41 @@
       transition: all 0.3s ease;
     }
 
-     input:focus {
+    input:focus {
       outline: none;
       border-color: rgba(57, 255, 20, 0.5);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
-    
-.clear-button {
+
+    .clear-button {
       position: absolute;
-      right: 300px;
+      right: 295px; /* Posição ajustada para o novo padding */
       top: 50%;
       transform: translateY(-50%);
-      border: none;
-      cursor: pointer;
-      display: none;
       
-      background-color: #FF007F;
-      color: #FFFFFF;
+      background: transparent;
+      border: 1px solid rgba(255, 0, 127, 0.5); /* Borda rosa sutil para o círculo */
+      color: #FF007F; /* O caractere 'x' em rosa */
+
       height: 24px;
       width: 24px;
       border-radius: 50%;
       
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
-      line-height: 24px;
+      line-height: 22px;
       text-align: center;
+      
+      cursor: pointer;
+      display: none;
       transition: all 0.2s ease;
       backdrop-filter: none;
     }
 
     .clear-button:hover {
+      background: rgba(255, 0, 127, 0.1); /* Brilho rosa sutil no fundo */
+      box-shadow: 0 0 10px #FF007F; /* Glow neon rosa no hover */
       transform: translateY(-50%) scale(1.1);
-      filter: brightness(1.2);
     }
 
     button { 
@@ -164,15 +167,6 @@
 
     footer a:hover {
       color: #FF007F;
-    }
-   
-    .clear-button::before {
-      background: none;
-    }
-
-    .clear-button:hover {
-      transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 8px #FF007F);
     }
 </style>
 </head>
