@@ -82,27 +82,32 @@
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
     
-    .clear-button {
+.clear-button {
       position: absolute;
       right: 300px;
       top: 50%;
       transform: translateY(-50%);
-      background: transparent; 
       border: none;
-      color: #FF007F;
-      font-family: sans-serif;
-      font-size: 22px;
-      font-weight: bold;
       cursor: pointer;
-      padding: 0 10px;
       display: none;
+      
+      background-color: #FF007F;
+      color: #FFFFFF;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 24px;
+      text-align: center;
       transition: all 0.2s ease;
-      line-height: 1;
+      backdrop-filter: none;
     }
-    
+
     .clear-button:hover {
-      transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 5px #FF007F);
+      transform: translateY(-50%) scale(1.1);
+      filter: brightness(1.2);
     }
 
     button { 
