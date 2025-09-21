@@ -52,52 +52,81 @@
       font-size: 1.1em;
       margin-bottom: 40px;
     }
-    
+
     .search-wrapper {
       position: relative;
-    }
-
-    .search-container {
-      display: flex;
+      display: flex; /* Chave para o alinhamento correto */
       justify-content: center;
       align-items: center;
-      border-radius: 50px;
+    }
+
+    input { 
+      width: 100%; /* Ocupa todo o espaço do container */
+      padding: 15px 310px 15px 25px; /* Padding direito grande para dar espaço aos botões */
+      border-radius: 50px; 
       border: 1px solid rgba(255, 255, 255, 0.1);
       background-color: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      transition: all 0.3s ease;
-    }
-    
-    .search-container:focus-within {
-      box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
-      border-color: rgba(255, 0, 127, 0.3);
-    }
-
-    input { 
-      flex-grow: 1;
-      padding: 15px 50px 15px 25px; 
-      border-radius: 50px 0 0 50px; 
-      border: none;
-      background-color: transparent; 
       color: #e4e6eb; 
       font-size: 16px;
+      transition: all 0.3s ease;
     }
 
     input:focus {
       outline: none;
+      border-color: rgba(255, 0, 127, 0.3);
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); /* BRILHO ROSA NO FOCO */
     }
 
+    .button-container {
+      position: absolute; /* Posiciona os botões sobre o input */
+      right: 6px; /* Distância da borda direita */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+    }
+
+    button { 
+      padding: 11px 20px; 
+      border: none; 
+      background-color: #3a3b3c;
+      color: #e4e6eb;
+      font-size: 14px; 
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+    
+    #searchButton { 
+      border-radius: 50px 0 0 50px; 
+      background-image: linear-gradient(45deg, #FF007F, #8D2BE2);
+    }
+    
+    #pinterestButton {
+      border-radius: 0;
+      background-color: #E60023;
+    }
+    
+    #copyButton {
+      border-radius: 0 50px 50px 0;
+      background-color: #5865F2;
+    }
+    
+    button:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+    
     .clear-button {
       position: absolute;
-      right: 295px;
+      right: 300px; /* Posição ajustada relativa ao container */
       top: 50%;
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: #FF007F;
-      font-family: sans-serif;
+      color: #FF007F; /* Cor rosa */
       font-size: 22px;
       font-weight: bold;
       cursor: pointer;
@@ -109,46 +138,7 @@
 
     .clear-button:hover {
       transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 5px #FF007F);
-    }
-
-    button { 
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      padding: 15px 25px; 
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-left: none;
-      background-color: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: #e4e6eb;
-      font-size: 14px; 
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-    
-    #searchButton { border-radius: 0; }
-    #pinterestButton { border-radius: 0; }
-    #copyButton { border-radius: 0 50px 50px 0; }
-
-    button::before {
-      content: '';
-      position: absolute;
-      left: var(--mouse-x, 50%);
-      top: var(--mouse-y, 50%);
-      width: 0;
-      height: 0;
-      background: radial-gradient(circle closest-side, rgba(57, 255, 20, 0.5), transparent);
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease;
-    }
-
-    button:hover::before {
-      width: 200px;
-      height: 200px;
+      filter: drop-shadow(0 0 5px #FF007F); /* Brilho rosa sutil */
     }
     
     footer {
@@ -180,8 +170,8 @@
     <p>Digite o nome de um jogo para ver o tempo de jogo, copiar o nome ou obter o ícone.</p>
     
     <div class="search-wrapper">
-      <div class="search-container">
-        <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
+      <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
+      <div class="button-container">
         <button id="searchButton">Tempo</button>
         <button id="pinterestButton">Ícone</button>
         <button id="copyButton">Copiar</button>
@@ -274,16 +264,8 @@
       gameInput.focus();
       toggleClearButton();
     });
-
-    allButtons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        button.style.setProperty('--mouse-x', `${x}px`);
-        button.style.setProperty('--mouse-y', `${y}px`);
-      });
-    });
+    
+    // Removido o script de hover do mouse que não estava em uso na versão final
     
     gameInput.focus();
     setInterval(changePlaceholder, 4000);
