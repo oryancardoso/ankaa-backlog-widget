@@ -101,8 +101,8 @@
     
     #copyButton {
       border-radius: 0 50px 50px 0;
-      background-color: #5865F2; /* Cor do Discord, neutra e bonita */
-      box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+      background-image: linear-gradient(45deg, #39FF14, #00FFFF);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
     }
     
     #searchButton:hover, #pinterestButton:hover, #copyButton:hover {
@@ -175,25 +175,30 @@
       const gameName = gameInput.value;
       if (!gameName) return;
       navigator.clipboard.writeText(gameName).then(() => {
-        copyButton.innerText = 'Copiado!';
+        copyButton.innerText = 'COPIADO!';
         setTimeout(() => {
-          copyButton.innerText = 'Copiar';
+          copyButton.innerText = 'COPIAR';
         }, 1500);
       });
     };
     
     const placeholders = [
-      'Ex: The Witcher 3',
-      'Ex: Hollow Knight',
-      'Ex: Cyberpunk 2077',
-      'Ex: Stardew Valley',
-      'Ex: Elden Ring'
+      'Ex: The Witcher 3', 'Ex: Elden Ring', 'Ex: Baldur\'s Gate 3', 'Ex: Hollow Knight', 'Ex: Red Dead Redemption 2',
+      'Ex: Cyberpunk 2077', 'Ex: Stardew Valley', 'Ex: The Legend of Zelda: Tears of the Kingdom', 'Ex: God of War Ragnarök', 'Ex: Grand Theft Auto V',
+      'Ex: Minecraft', 'Ex: Terraria', 'Ex: Portal 2', 'Ex: The Last of Us Part I', 'Ex: Hades',
+      'Ex: Disco Elysium', 'Ex: Mass Effect 2', 'Ex: BioShock', 'Ex: Bloodborne', 'Ex: Dark Souls',
+      'Ex: Sekiro: Shadows Die Twice', 'Ex: Persona 5 Royal', 'Ex: Final Fantasy VII Remake', 'Ex: Chrono Trigger', 'Ex: Super Metroid',
+      'Ex: Castlevania: Symphony of the Night', 'Ex: Metal Gear Solid', 'Ex: Resident Evil 4', 'Ex: Shadow of the Colossus', 'Ex: The Elder Scrolls V: Skyrim',
+      'Ex: Fallout: New Vegas', 'Ex: Outer Wilds', 'Ex: Celeste', 'Ex: Undertale', 'Ex: Journey',
+      'Ex: Inside', 'Ex: Limbo', 'Ex: What Remains of Edith Finch', 'Ex: Firewatch', 'Ex: Life is Strange',
+      'Ex: Nier: Automata', 'Ex: Ori and the Blind Forest', 'Ex: Dead Cells', 'Ex: Slay the Spire', 'Ex: Into the Breach',
+      'Ex: FTL: Faster Than Light', 'Ex: Shovel Knight', 'Ex: Cuphead', 'Ex: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
     
     const changePlaceholder = () => {
-      placeholderIndex = (placeholderIndex + 1) % placeholders.length;
       gameInput.placeholder = placeholders[placeholderIndex];
+      placeholderIndex = (placeholderIndex + 1) % placeholders.length;
     };
 
     searchButton.addEventListener('click', searchOnHltb);
@@ -206,9 +211,7 @@
         }
     });
     
-    // Inicia o Foco Automático
     gameInput.focus();
-    // Inicia a troca de placeholders
     setInterval(changePlaceholder, 4000);
   </script>
 </body>
