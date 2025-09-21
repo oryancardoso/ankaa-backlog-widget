@@ -1,3 +1,31 @@
+Entendido. Chega de design "flat". Você quer profundidade, textura, um feeling mais futurista.
+
+Sua intuição está perfeita. As palavras que você usou — "tecnológico", "transparente", "efeito de vidro", "soft" — descrevem uma das tendências de design mais modernas e bonitas da atualidade: Glassmorphism (ou "Vidromorfismo").
+
+E você tem toda a razão: sua paleta de cores neon é perfeita para isso.
+
+Vamos fazer um último e ousado redesign.
+
+A Proposta: O Redesign "Glassmorphism"
+Vamos transformar a barra de busca inteira em uma única peça de "vidro" semi-transparente. O fundo será escuro e borrado. Os botões, em seu estado normal, serão transparentes como o resto do vidro, mas o texto de cada um terá a cor da sua marca (TEMPO em rosa, ÍCONE em verde, COPIAR em ciano).
+
+Ao passar o mouse, o botão correspondente vai brilhar intensamente com sua cor, dando aquele feeling "high-tech" que você quer.
+
+O resultado será infinitamente mais elegante, leve e tecnológico.
+
+Implementação: O Update de Estilo Final
+Este é um redesenho completo do componente de busca. Para garantir que tudo funcione, vou te passar o index.html completo com o novo CSS.
+
+Instruções (a última dança):
+
+Abra seu arquivo index.html.
+
+Apague TUDO.
+
+Cole o código final abaixo.
+
+HTML
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,6 +38,7 @@
 
     body { 
       background-color: #0D0A0A;
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%231a1a1a" fill-opacity="0.4"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3Cpath d="M6 5V0h1v5h5v1H6v5H5V6H0V5h5z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
       color: #e4e6eb; 
       font-family: 'Poppins', sans-serif;
       margin: 0; 
@@ -56,6 +85,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
     input { 
@@ -63,23 +98,20 @@
       padding: 15px 25px; 
       border-radius: 50px 0 0 50px; 
       border: none;
-      background-color: #3a3b3c; 
+      background-color: transparent; 
       color: #e4e6eb; 
       font-size: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
     }
 
     input:focus {
       outline: none;
-      box-shadow: 0 4px 20px #39FF1466;
     }
 
     button { 
       flex-shrink: 0;
       padding: 15px 25px; 
       border: none; 
-      color: #FFFFFF;
+      background-color: transparent;
       font-size: 14px; 
       font-weight: 600;
       cursor: pointer;
@@ -89,24 +121,28 @@
 
     #searchButton { 
       border-radius: 0; 
-      background-image: linear-gradient(45deg, #FF007F, #8D2BE2); 
-      box-shadow: 0 0 20px rgba(141, 43, 226, 0.4);
+      color: #FF007F;
     }
     
     #pinterestButton {
       border-radius: 0;
-      background-color: #39FF14; /* SEU VERDE PRIMÁRIO */
-      color: #0D0A0A; /* SEU PRETO SECUNDÁRIO para contraste */
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+      color: #39FF14;
     }
     
     #copyButton {
       border-radius: 0 50px 50px 0;
-      background-color: #00FFFF; /* SEU CIANO PRIMÁRIO */
-      color: #0D0A0A; /* SEU PRETO SECUNDÁRIO para contraste */
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      color: #00FFFF;
     }
     
+    #searchButton:hover, #pinterestButton:hover, #copyButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+    
+    #searchButton:hover { box-shadow: 0 0 20px #FF007F; }
+    #pinterestButton:hover { box-shadow: 0 0 20px #39FF14; }
+    #copyButton:hover { box-shadow: 0 0 20px #00FFFF; }
+
     footer {
       margin-top: 50px;
       font-size: 0.9em;
