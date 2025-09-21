@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ankaa Games - Buscador HLTB</title>
+  <style>
+    /* Importa uma fonte moderna do Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body { 
+      background-color: #0D0A0A; /* SEU PRETO OFICIAL */
+      color: #e4e6eb; 
+      font-family: 'Poppins', sans-serif;
+      margin: 0; 
+      padding: 20px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 90vh; 
+    }
+
+    .container { 
+      width: 100%; 
+      max-width: 600px;
+      text-align: center; 
+    }
+
+    /* Estilo para o logo */
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease; /* Transição suave */
+      /* Removido o filtro de brilho padrão para uma aparência mais limpa */
+    }
+
+    .logo:hover {
+      transform: scale(1.1); /* O logo aumenta um pouco */
+      /* AGORA, O BRILHO MAGENTA SÓ APARECE NO HOVER */
+      filter: drop-shadow(0 0 15px #FF007F); 
+    }
+
+    h1 { 
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 2.2em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    p { 
+      color: #b0b3b8;
+      font-size: 1.1em;
+      margin-bottom: 40px;
+    }
+
+    input { 
+      width: 70%;
+      padding: 15px 25px; 
+      border-radius: 50px; 
+      border: none;
+      background-color: #3a3b3c; 
+      color: #e4e6eb; 
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 4px 20px #39FF1466;
+    }
+
+    button { 
+      padding: 15px 30px; 
+      margin-left: -50px;
+      border: none; 
+      border-radius: 50px; 
+      background-image: linear-gradient(45deg, #FF007F, #8D2BE2); 
+      color: #FFFFFF;
+      font-size: 16px; 
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(141, 43, 226, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(255, 0, 127, 0.5);
+    }
+
+    /* Estilo para o novo rodapé */
+    footer {
+      margin-top: 50px; /* Espaço acima do rodapé */
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    footer a {
+      color: #aaa; /* Cor do link */
+      text-decoration: none; /* Remove o sublinhado */
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #FF007F; /* Link fica rosa ao passar o mouse */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
+      <img src="logo.png" alt="Logo Ankaa Games" class="logo">
+    </a>
+
+    <h1>BUSCADOR DE TEMPO DE JOGO</h1>
+    <p>Digite o nome do jogo e clique em buscar para abrir os resultados no site HowLongToBeat.</p>
+
+    <div>
+      <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
+      <button id="searchButton">Buscar</button>
+    </div>
+
+    <footer>
+      <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    const gameInput = document.getElementById('gameInput');
+    const searchButton = document.getElementById('searchButton');
+
+    const searchOnHltb = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchUrl = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    searchButton.addEventListener('click', searchOnHltb);
+    gameInput.addEventListener('keyup', (event) => {
+        if (event.key === "Enter") {
+            searchOnHltb();
+        }
+    });
+  </script>
+</body>
+</html>
