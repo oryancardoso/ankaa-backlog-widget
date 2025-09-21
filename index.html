@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ankaa Games - Ferramentas</title>
-<style>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
     body { 
@@ -53,6 +53,10 @@
       margin-bottom: 40px;
     }
 
+    .search-wrapper {
+      position: relative;
+    }
+
     .search-container {
       display: flex;
       justify-content: center;
@@ -61,7 +65,7 @@
 
     input { 
       flex-grow: 1;
-      padding: 15px 25px; 
+      padding: 15px 50px 15px 25px; 
       border-radius: 50px 0 0 50px; 
       border: 1px solid rgba(255, 255, 255, 0.1);
       background-color: rgba(255, 255, 255, 0.05);
@@ -76,6 +80,20 @@
       outline: none;
       border-color: rgba(57, 255, 20, 0.5);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
+    }
+
+    .clear-button {
+      position: absolute;
+      right: 215px; /* Ajuste fino da posição do 'x' */
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0 10px;
+      display: none; /* Começa escondido */
     }
 
     button { 
@@ -143,13 +161,16 @@
     </a>
     
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
-    <p>Digite o nome de um jogo para buscar seu tempo, ícone ou copiar o nome.</p>
+    <p>Digite o nome de um jogo para ver o tempo de jogo, copiar o nome ou obter o ícone.</p>
     
-    <div class="search-container">
-      <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
-      <button id="searchButton">Tempo</button>
-      <button id="pinterestButton">Ícone</button>
-      <button id="copyButton">Copiar</button>
+    <div class="search-wrapper">
+      <div class="search-container">
+        <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
+        <button id="searchButton">Tempo</button>
+        <button id="pinterestButton">Ícone</button>
+        <button id="copyButton">Copiar</button>
+      </div>
+      <button class="clear-button" id="clearButton">&times;</button>
     </div>
     
     <footer>
@@ -158,11 +179,12 @@
 
   </div>
 
-<script>
+  <script>
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
     const copyButton = document.getElementById('copyButton');
+    const clearButton = document.getElementById('clearButton');
     const allButtons = [searchButton, pinterestButton, copyButton];
 
     const searchOnHltb = () => {
@@ -192,22 +214,30 @@
     };
     
     const placeholders = [
-      'Ex: The Witcher 3', 'Ex: Elden Ring', 'Ex: Baldur\'s Gate 3', 'Ex: Hollow Knight', 'Ex: Red Dead Redemption 2',
-      'Ex: Cyberpunk 2077', 'Ex: Stardew Valley', 'Ex: The Legend of Zelda: Tears of the Kingdom', 'Ex: God of War Ragnarök', 'Ex: Grand Theft Auto V',
-      'Ex: Minecraft', 'Ex: Terraria', 'Ex: Portal 2', 'Ex: The Last of Us Part I', 'Ex: Hades',
-      'Ex: Disco Elysium', 'Ex: Mass Effect 2', 'Ex: BioShock', 'Ex: Bloodborne', 'Ex: Dark Souls',
-      'Ex: Sekiro: Shadows Die Twice', 'Ex: Persona 5 Royal', 'Ex: Final Fantasy VII Remake', 'Ex: Chrono Trigger', 'Ex: Super Metroid',
-      'Ex: Castlevania: Symphony of the Night', 'Ex: Metal Gear Solid', 'Ex: Resident Evil 4', 'Ex: Shadow of the Colossus', 'Ex: The Elder Scrolls V: Skyrim',
-      'Ex: Fallout: New Vegas', 'Ex: Outer Wilds', 'Ex: Celeste', 'Ex: Undertale', 'Ex: Journey',
-      'Ex: Inside', 'Ex: Limbo', 'Ex: What Remains of Edith Finch', 'Ex: Firewatch', 'Ex: Life is Strange',
-      'Ex: Nier: Automata', 'Ex: Ori and the Blind Forest', 'Ex: Dead Cells', 'Ex: Slay the Spire', 'Ex: Into the Breach',
-      'Ex: FTL: Faster Than Light', 'Ex: Shovel Knight', 'Ex: Cuphead', 'Ex: Hollow Knight: Silksong'
+      'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
+      'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
+      'Ex.: Minecraft', 'Ex.: Terraria', 'Ex.: Portal 2', 'Ex.: The Last of Us Part I', 'Ex.: Hades',
+      'Ex.: Disco Elysium', 'Ex.: Mass Effect 2', 'Ex.: BioShock', 'Ex.: Bloodborne', 'Ex.: Dark Souls',
+      'Ex.: Sekiro: Shadows Die Twice', 'Ex.: Persona 5 Royal', 'Ex.: Final Fantasy VII Remake', 'Ex.: Chrono Trigger', 'Ex.: Super Metroid',
+      'Ex.: Castlevania: Symphony of the Night', 'Ex.: Metal Gear Solid', 'Ex.: Resident Evil 4', 'Ex.: Shadow of the Colossus', 'Ex.: The Elder Scrolls V: Skyrim',
+      'Ex.: Fallout: New Vegas', 'Ex.: Outer Wilds', 'Ex.: Celeste', 'Ex.: Undertale', 'Ex.: Journey',
+      'Ex.: Inside', 'Ex.: Limbo', 'Ex.: What Remains of Edith Finch', 'Ex.: Firewatch', 'Ex.: Life is Strange',
+      'Ex.: Nier: Automata', 'Ex.: Ori and the Blind Forest', 'Ex.: Dead Cells', 'Ex.: Slay the Spire', 'Ex.: Into the Breach',
+      'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
     
     const changePlaceholder = () => {
       gameInput.placeholder = placeholders[placeholderIndex];
       placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+    };
+    
+    const toggleClearButton = () => {
+      if (gameInput.value) {
+        clearButton.style.display = 'block';
+      } else {
+        clearButton.style.display = 'none';
+      }
     };
 
     searchButton.addEventListener('click', searchOnHltb);
@@ -218,6 +248,15 @@
         if (event.key === "Enter") {
             searchOnHltb();
         }
+        toggleClearButton();
+    });
+    
+    gameInput.addEventListener('input', toggleClearButton);
+    
+    clearButton.addEventListener('click', () => {
+      gameInput.value = '';
+      gameInput.focus();
+      toggleClearButton();
     });
 
     allButtons.forEach(button => {
@@ -232,6 +271,7 @@
     
     gameInput.focus();
     setInterval(changePlaceholder, 4000);
+    toggleClearButton();
 </script>
 </body>
 </html>
