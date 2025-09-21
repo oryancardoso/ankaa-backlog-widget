@@ -80,10 +80,11 @@
       padding: 15px 25px; 
       border: none; 
       color: #FFFFFF;
-      font-size: 16px; 
+      font-size: 14px; 
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-transform: uppercase;
     }
 
     #searchButton { 
@@ -93,12 +94,18 @@
     }
     
     #pinterestButton {
-      border-radius: 0 50px 50px 0;
+      border-radius: 0;
       background-color: #E60023;
       box-shadow: 0 0 20px rgba(230, 0, 35, 0.4);
     }
     
-    #searchButton:hover, #pinterestButton:hover {
+    #copyButton {
+      border-radius: 0 50px 50px 0;
+      background-color: #5865F2; /* Cor do Discord, neutra e bonita */
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+    }
+    
+    #searchButton:hover, #pinterestButton:hover, #copyButton:hover {
       transform: scale(1.05);
     }
     
@@ -128,12 +135,13 @@
     </a>
     
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
-    <p>Digite o nome do jogo e clique em "Tempo" para abrir os resultados no site HowLongToBeat.</p>
+    <p>Digite o nome de um jogo para buscar seu tempo, ícone ou copiar o nome.</p>
     
     <div class="search-container">
       <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
       <button id="searchButton">Tempo</button>
       <button id="pinterestButton">Ícone</button>
+      <button id="copyButton">Copiar</button>
     </div>
     
     <footer>
@@ -146,6 +154,7 @@
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
+    const copyButton = document.getElementById('copyButton');
 
     const searchOnHltb = () => {
       const gameName = gameInput.value;
@@ -162,14 +171,45 @@
       window.open(searchUrl, '_blank');
     };
 
+    const copyGameName = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      navigator.clipboard.writeText(gameName).then(() => {
+        copyButton.innerText = 'Copiado!';
+        setTimeout(() => {
+          copyButton.innerText = 'Copiar';
+        }, 1500);
+      });
+    };
+    
+    const placeholders = [
+      'Ex: The Witcher 3',
+      'Ex: Hollow Knight',
+      'Ex: Cyberpunk 2077',
+      'Ex: Stardew Valley',
+      'Ex: Elden Ring'
+    ];
+    let placeholderIndex = 0;
+    
+    const changePlaceholder = () => {
+      placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+      gameInput.placeholder = placeholders[placeholderIndex];
+    };
+
     searchButton.addEventListener('click', searchOnHltb);
     pinterestButton.addEventListener('click', searchOnPinterest);
+    copyButton.addEventListener('click', copyGameName);
     
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
             searchOnHltb();
         }
     });
+    
+    // Inicia o Foco Automático
+    gameInput.focus();
+    // Inicia a troca de placeholders
+    setInterval(changePlaceholder, 4000);
   </script>
 </body>
 </html>
