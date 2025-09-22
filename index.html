@@ -84,18 +84,27 @@
 
     .clear-button {
       position: absolute;
-      right: 215px; /* Ajuste fino da posição do 'x' */
+      right: 300px;      /* Sua posição perfeita */
       top: 50%;
       transform: translateY(-50%);
-      background: transparent;
+      background: transparent; /* Fundo transparente, como pediu */
       border: none;
-      color: #888;
-      font-size: 20px;
+      color: #FF007F;       /* O caractere 'x' em rosa */
+      font-family: sans-serif;
+      font-size: 22px;
+      font-weight: bold;
       cursor: pointer;
-      padding: 0 10px;
-      display: none; /* Começa escondido */
+      padding: 0 15px;
+      display: none;
+      transition: all 0.2s ease;
+      line-height: 1;
     }
 
+    .clear-button:hover {
+      transform: translateY(-50%) scale(1.2);
+      filter: drop-shadow(0 0 8px #FF007F); /* O brilho rosa sutil no hover */
+    }
+    
     button { 
       position: relative;
       overflow: hidden;
