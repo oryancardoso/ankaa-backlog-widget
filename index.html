@@ -85,7 +85,7 @@
 
     .clear-button {
       position: absolute;
-      left: 200px;
+      left: 215px; /* Posição recalibrada para o novo layout de botões */
       top: 50%;
       transform: translateY(-50%);
       background: transparent;
@@ -124,12 +124,30 @@
       text-transform: uppercase;
     }
     
-    #searchButton { border-radius: 0; }
-    #pinterestButton { border-radius: 0; }
+    #searchButton, #pinterestButton {
+      border-radius: 0;
+    }
     
     #menuButton {
       border-radius: 0 50px 50px 0;
       padding: 15px 20px;
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      left: var(--mouse-x, 50%);
+      top: var(--mouse-y, 50%);
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle closest-side, rgba(57, 255, 20, 0.5), transparent);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    button:hover::before {
+      width: 200px;
+      height: 200px;
     }
     
     .dropdown-menu {
@@ -142,7 +160,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       padding: 10px;
-      min-width: 200px;
+      min-width: 220px; /* Aumentado para caber os novos textos */
       z-index: 10;
       opacity: 0;
       visibility: hidden;
@@ -185,7 +203,7 @@
     footer a:hover {
       color: #FF007F;
     }
-  </style>
+</style>
 </head>
 <body>
   <div class="container">
@@ -202,12 +220,14 @@
         <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
         <button id="searchButton">Tempo</button>
         <button id="pinterestButton">Ícone</button>
-        <button id="menuButton">...</button>
+        <button id="menuButton">+</button>
         
         <div class="dropdown-menu" id="dropdownMenu">
           <button id="copyButton">Copiar Nome</button>
           <button id="metacriticButton">Notas (Metacritic)</button>
           <button id="youtubeButton">Gameplay (YouTube)</button>
+          <button id="trailerButton">Trailer Oficial</button>
+          <button id="reviewButton">Reviews (Google)</button>
         </div>
       </div>
       <button class="clear-button" id="clearButton">&times;</button>
@@ -228,7 +248,10 @@
     const copyButton = document.getElementById('copyButton');
     const metacriticButton = document.getElementById('metacriticButton');
     const youtubeButton = document.getElementById('youtubeButton');
+    const trailerButton = document.getElementById('trailerButton');
+    const reviewButton = document.getElementById('reviewButton');
     const clearButton = document.getElementById('clearButton');
+    const allButtons = [searchButton, pinterestButton, menuButton];
 
     const searchOnHltb = () => {
       const gameName = gameInput.value;
@@ -268,6 +291,22 @@
       if (!gameName) return;
       const searchQuery = `${gameName} gameplay`;
       const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    const searchForTrailer = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} official trailer`;
+      const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+    
+    const searchForReview = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} review`;
+      const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
       window.open(searchUrl, '_blank');
     };
     
@@ -314,6 +353,8 @@
     copyButton.addEventListener('click', copyGameName);
     metacriticButton.addEventListener('click', searchOnMetacritic);
     youtubeButton.addEventListener('click', searchOnYoutube);
+    trailerButton.addEventListener('click', searchForTrailer);
+    reviewButton.addEventListener('click', searchForReview);
     
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
@@ -328,6 +369,16 @@
       gameInput.value = '';
       gameInput.focus();
       toggleClearButton();
+    });
+
+    allButtons.forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        button.style.setProperty('--mouse-x', `${x}px`);
+        button.style.setProperty('--mouse-y', `${y}px`);
+      });
     });
     
     gameInput.focus();
