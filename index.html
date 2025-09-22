@@ -61,11 +61,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     input { 
       flex-grow: 1;
-      padding: 15px 50px 15px 25px; 
+      padding: 15px 40px 15px 25px;
       border-radius: 50px 0 0 50px; 
       border: 1px solid rgba(255, 255, 255, 0.1);
       background-color: rgba(255, 255, 255, 0.05);
@@ -82,15 +83,14 @@
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
 
-     .clear-button {
+    .clear-button {
       position: absolute;
-      right: 300px;      /* Sua posição perfeita */
+      left: 200px;
       top: 50%;
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: #FF007F;       /* O caractere 'x' em rosa */
-      font-family: sans-serif;
+      color: #FF007F;
       font-size: 22px;
       font-weight: bold;
       cursor: pointer;
@@ -98,13 +98,14 @@
       display: none;
       transition: all 0.2s ease;
       line-height: 1;
+      z-index: 5;
     }
 
     .clear-button:hover {
       transform: translateY(-50%) scale(1.2);
-      filter: drop-shadow(0 0 8px #FF007F); /* O brilho rosa sutil no hover */
+      filter: drop-shadow(0 0 5px #FF007F);
     }
-    
+
     button { 
       position: relative;
       overflow: hidden;
@@ -125,25 +126,49 @@
     
     #searchButton { border-radius: 0; }
     #pinterestButton { border-radius: 0; }
-    #copyButton { border-radius: 0 50px 50px 0; }
-
-    button::before {
-      content: '';
-      position: absolute;
-      left: var(--mouse-x, 50%);
-      top: var(--mouse-y, 50%);
-      width: 0;
-      height: 0;
-      background: radial-gradient(circle closest-side, rgba(57, 255, 20, 0.5), transparent);
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease;
-    }
-
-    button:hover::before {
-      width: 200px;
-      height: 200px;
+    
+    #menuButton {
+      border-radius: 0 50px 50px 0;
+      padding: 15px 20px;
     }
     
+    .dropdown-menu {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background-color: rgba(30, 30, 30, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      min-width: 200px;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .dropdown-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 5px;
+    }
+    
+    .dropdown-menu button:last-child {
+      margin-bottom: 0;
+    }
+
     footer {
       margin-top: 50px;
       font-size: 0.9em;
@@ -160,7 +185,7 @@
     footer a:hover {
       color: #FF007F;
     }
-</style>
+  </style>
 </head>
 <body>
   <div class="container">
@@ -170,16 +195,22 @@
     </a>
     
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
-    <p>Digite o nome de um jogo para ver o tempo de jogo, copiar o nome ou obter o ícone.</p>
+    <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
     
     <div class="search-wrapper">
       <div class="search-container">
         <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
         <button id="searchButton">Tempo</button>
         <button id="pinterestButton">Ícone</button>
-        <button id="copyButton">Copiar</button>
+        <button id="menuButton">...</button>
+        
+        <div class="dropdown-menu" id="dropdownMenu">
+          <button id="copyButton">Copiar Nome</button>
+          <button id="metacriticButton">Notas (Metacritic)</button>
+          <button id="youtubeButton">Gameplay (YouTube)</button>
+        </div>
       </div>
-      <span class="clear-button" id="clearButton">&times;</span>
+      <button class="clear-button" id="clearButton">&times;</button>
     </div>
     
     <footer>
@@ -192,9 +223,12 @@
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
+    const menuButton = document.getElementById('menuButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
     const copyButton = document.getElementById('copyButton');
+    const metacriticButton = document.getElementById('metacriticButton');
+    const youtubeButton = document.getElementById('youtubeButton');
     const clearButton = document.getElementById('clearButton');
-    const allButtons = [searchButton, pinterestButton, copyButton];
 
     const searchOnHltb = () => {
       const gameName = gameInput.value;
@@ -217,9 +251,24 @@
       navigator.clipboard.writeText(gameName).then(() => {
         copyButton.innerText = 'COPIADO!';
         setTimeout(() => {
-          copyButton.innerText = 'COPIAR';
+          copyButton.innerText = 'COPIAR NOME';
         }, 1500);
       });
+    };
+    
+    const searchOnMetacritic = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchUrl = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
+      window.open(searchUrl, '_blank');
+    };
+    
+    const searchOnYoutube = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} gameplay`;
+      const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
     };
     
     const placeholders = [
@@ -248,10 +297,23 @@
         clearButton.style.display = 'none';
       }
     };
+    
+    menuButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      dropdownMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
 
     searchButton.addEventListener('click', searchOnHltb);
     pinterestButton.addEventListener('click', searchOnPinterest);
     copyButton.addEventListener('click', copyGameName);
+    metacriticButton.addEventListener('click', searchOnMetacritic);
+    youtubeButton.addEventListener('click', searchOnYoutube);
     
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
@@ -266,16 +328,6 @@
       gameInput.value = '';
       gameInput.focus();
       toggleClearButton();
-    });
-
-    allButtons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        button.style.setProperty('--mouse-x', `${x}px`);
-        button.style.setProperty('--mouse-y', `${y}px`);
-      });
     });
     
     gameInput.focus();
