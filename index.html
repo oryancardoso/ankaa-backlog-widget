@@ -63,7 +63,7 @@
       align-items: center;
       position: relative;
     }
-
+    
     .input-wrapper {
       position: relative;
       display: flex;
@@ -72,7 +72,6 @@
 
     input { 
       width: 100%;
-      padding: 15px 45px 15px 25px; /* Padding direito para o 'x' */
       padding: 15px 45px 15px 25px;
       border-radius: 50px 0 0 50px; 
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -131,16 +130,16 @@
       transition: all 0.3s ease;
       text-transform: uppercase;
     }
-
+    
     #searchButton, #pinterestButton {
       border-radius: 0;
     }
-
+    
     #menuButton {
       border-radius: 0 50px 50px 0;
       padding: 15px 20px;
     }
-
+    
     button::before {
       content: '';
       position: absolute;
@@ -159,10 +158,9 @@
     }
 
     .clear-button::before {
-        background: none; /* Garante que o 'x' não herde o holofote verde */
         background: none;
     }
-
+    
     .dropdown-menu {
       position: absolute;
       top: 110%;
@@ -182,13 +180,13 @@
       max-height: 180px;
       overflow-y: auto;
     }
-
+    
     .dropdown-menu.show {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-
+    
     .dropdown-menu button {
       display: block;
       width: 100%;
@@ -197,7 +195,7 @@
       border: none;
       margin-bottom: 5px;
     }
-
+    
     .dropdown-menu button:last-child {
       margin-bottom: 0;
     }
@@ -222,17 +220,16 @@
 </head>
 <body>
   <div class="container">
-
+    
     <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
       <img src="/public/logo.png" alt="Logo Ankaa Games" class="logo">
     </a>
-
+    
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
     <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
-
+    
     <div class="search-wrapper">
       <div class="search-container">
-
         <div class="input-wrapper">
           <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
           <span class="clear-button" id="clearButton">&times;</span>
@@ -240,7 +237,7 @@
         <button id="searchButton">Tempo</button>
         <button id="pinterestButton">Ícone</button>
         <button id="menuButton">+</button>
-
+        
         <div class="dropdown-menu" id="dropdownMenu">
           <button id="copyButton">Copiar Nome</button>
           <button id="metacriticButton">Notas (Metacritic)</button>
@@ -248,10 +245,9 @@
           <button id="trailerButton">Trailer Oficial</button>
           <button id="reviewButton">Reviews (Google)</button>
         </div>
-
       </div>
-      </div>
-
+    </div>
+    
     <footer>
       <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
     </footer>
@@ -270,7 +266,7 @@
     const trailerButton = document.getElementById('trailerButton');
     const reviewButton = document.getElementById('reviewButton');
     const clearButton = document.getElementById('clearButton');
-    const allButtons = [searchButton, pinterestButton, menuButton];
+    const allButtons = [searchButton, pinterestButton, menuButton]; // Removidos os botões do dropdown daqui
 
     const searchOnHltb = () => {
       const gameName = gameInput.value;
@@ -278,7 +274,7 @@
       const searchUrl = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
       window.open(searchUrl, '_blank');
     };
-
+    
     const searchOnPinterest = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
@@ -297,14 +293,14 @@
         }, 1500);
       });
     };
-
+    
     const searchOnMetacritic = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
       const searchUrl = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
       window.open(searchUrl, '_blank');
     };
-
+    
     const searchOnYoutube = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
@@ -320,7 +316,7 @@
       const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
       window.open(searchUrl, '_blank');
     };
-
+    
     const searchForReview = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
@@ -328,7 +324,7 @@
       const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
       window.open(searchUrl, '_blank');
     };
-
+    
     const placeholders = [
       'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
       'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
@@ -342,12 +338,12 @@
       'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
-
+    
     const changePlaceholder = () => {
       gameInput.placeholder = placeholders[placeholderIndex];
       placeholderIndex = (placeholderIndex + 1) % placeholders.length;
     };
-
+    
     const toggleClearButton = () => {
       if (gameInput.value) {
         clearButton.style.display = 'block';
@@ -355,7 +351,7 @@
         clearButton.style.display = 'none';
       }
     };
-
+    
     menuButton.addEventListener('click', (event) => {
       event.stopPropagation();
       dropdownMenu.classList.toggle('show');
@@ -374,16 +370,16 @@
     youtubeButton.addEventListener('click', searchOnYoutube);
     trailerButton.addEventListener('click', searchForTrailer);
     reviewButton.addEventListener('click', searchForReview);
-
+    
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
             searchOnHltb();
         }
         toggleClearButton();
     });
-
+    
     gameInput.addEventListener('input', toggleClearButton);
-
+    
     clearButton.addEventListener('click', () => {
       gameInput.value = '';
       gameInput.focus();
@@ -399,7 +395,7 @@
         button.style.setProperty('--mouse-y', `${y}px`);
       });
     });
-
+    
     gameInput.focus();
     setInterval(changePlaceholder, 4000);
     toggleClearButton();
