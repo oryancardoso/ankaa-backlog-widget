@@ -69,17 +69,12 @@
     }
     .search-wrapper {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
     }
     .search-container {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      flex-grow: 1;
     }
     .input-wrapper {
       position: relative;
@@ -148,7 +143,7 @@
       border-radius: 0 50px 50px 0;
       padding: 15px 20px;
     }
-    .button:hover::before {
+    .button::before {
       content: '';
       position: absolute;
       left: var(--mouse-x, 50%);
@@ -159,7 +154,7 @@
       transform: translate(-50%, -50%);
       transition: width 0.3s ease, height 0.3s ease;
     }
-    .button:hover:hover::before {
+    .button:hover::before {
       width: 200px;
       height: 200px;
     }
@@ -241,22 +236,21 @@
     }
     #toast {
       position: fixed;
-      top: -100px; /* MUDANÇA: Começa escondido ACIMA da tela */
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #39FF14;
       color: #0D0A0A;
-      padding: 16px 25px;
+      padding: 16px;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
       font-weight: 600;
       z-index: 1000;
-      transition: top 0.5s ease-in-out; /* MUDANÇA: Animação na propriedade 'top' */
+      transition: top 0.5s ease;
       user-select: none;
     }
-
     #toast.show {
-      top: 30px; /* MUDANÇA: Posição final quando visível, 30px do topo */
+      top: 30px;
     }
 </style>
 </head>
@@ -298,8 +292,9 @@
   </div>
 
   <div id="toast"></div>
+  <audio id="toasty-sound" src="/public/toasty.mp3" preload="auto"></audio>
 
-<script>
+  <script>
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
@@ -314,7 +309,7 @@
     const themeSwitcher = document.getElementById('themeSwitcher');
     const toast = document.getElementById('toast');
     const toastySound = document.getElementById('toasty-sound');
-
+    
     const showToast = (message) => {
       toast.innerText = message;
       toast.classList.add('show');
@@ -327,23 +322,16 @@
       event.preventDefault();
       const gameName = gameInput.value;
       if (!gameName) return;
-      
-      if (toastySound) {
-        toastySound.load(); 
-      }
-
+      if (toastySound) toastySound.load();
       navigator.clipboard.writeText(gameName).then(() => {
         showToast('Nome copiado!');
-        if (toastySound) {
-          toastySound.play();
-        }
+        if (toastySound) toastySound.play();
       });
     };
 
     const updateLinkHrefs = () => {
         const gameName = gameInput.value;
         const baseHref = '#';
-
         if (!gameName) {
             searchButton.href = baseHref;
             pinterestButton.href = baseHref;
@@ -353,7 +341,6 @@
             reviewButton.href = baseHref;
             return;
         }
-
         searchButton.href = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
         pinterestButton.href = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(gameName + ' game cover art')}`;
         metacriticButton.href = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
@@ -363,16 +350,7 @@
     };
     
     const placeholders = [
-      'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
-      'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
-      'Ex.: Minecraft', 'Ex.: Terraria', 'Ex.: Portal 2', 'Ex.: The Last of Us Part I', 'Ex.: Hades',
-      'Ex.: Disco Elysium', 'Ex.: Mass Effect 2', 'Ex.: BioShock', 'Ex.: Bloodborne', 'Ex.: Dark Souls',
-      'Ex.: Sekiro: Shadows Die Twice', 'Ex.: Persona 5 Royal', 'Ex.: Final Fantasy VII Remake', 'Ex.: Chrono Trigger', 'Ex.: Super Metroid',
-      'Ex.: Castlevania: Symphony of the Night', 'Ex.: Metal Gear Solid', 'Ex.: Resident Evil 4', 'Ex.: Shadow of the Colossus', 'Ex.: The Elder Scrolls V: Skyrim',
-      'Ex.: Fallout: New Vegas', 'Ex.: Outer Wilds', 'Ex.: Celeste', 'Ex.: Undertale', 'Ex.: Journey',
-      'Ex.: Inside', 'Ex.: Limbo', 'Ex.: What Remains of Edith Finch', 'Ex.: Firewatch', 'Ex.: Life is Strange',
-      'Ex.: Nier: Automata', 'Ex.: Ori and the Blind Forest', 'Ex.: Dead Cells', 'Ex.: Slay the Spire', 'Ex.: Into the Breach',
-      'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
+      'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2', 'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V', 'Ex.: Minecraft', 'Ex.: Terraria', 'Ex.: Portal 2', 'Ex.: The Last of Us Part I', 'Ex.: Hades', 'Ex.: Disco Elysium', 'Ex.: Mass Effect 2', 'Ex.: BioShock', 'Ex.: Bloodborne', 'Ex.: Dark Souls', 'Ex.: Sekiro: Shadows Die Twice', 'Ex.: Persona 5 Royal', 'Ex.: Final Fantasy VII Remake', 'Ex.: Chrono Trigger', 'Ex.: Super Metroid', 'Ex.: Castlevania: Symphony of the Night', 'Ex.: Metal Gear Solid', 'Ex.: Resident Evil 4', 'Ex.: Shadow of the Colossus', 'Ex.: The Elder Scrolls V: Skyrim', 'Ex.: Fallout: New Vegas', 'Ex.: Outer Wilds', 'Ex.: Celeste', 'Ex.: Undertale', 'Ex.: Journey', 'Ex.: Inside', 'Ex.: Limbo', 'Ex.: What Remains of Edith Finch', 'Ex.: Firewatch', 'Ex.: Life is Strange', 'Ex.: Nier: Automata', 'Ex.: Ori and the Blind Forest', 'Ex.: Dead Cells', 'Ex.: Slay the Spire', 'Ex.: Into the Breach', 'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
     
@@ -388,6 +366,19 @@
         clearButton.style.display = 'none';
       }
     };
+    
+    const searchLinks = [
+      searchButton, pinterestButton, metacriticButton,
+      youtubeButton, trailerButton, reviewButton
+    ];
+
+    searchLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        if (!gameInput.value) {
+          event.preventDefault();
+        }
+      });
+    });
     
     menuButton.addEventListener('click', (event) => {
       event.preventDefault();
@@ -420,17 +411,15 @@
       toggleClearButton();
       updateLinkHrefs();
     });
-
-    const searchLinks = [
-      searchButton, pinterestButton, metacriticButton, 
-      youtubeButton, trailerButton, reviewButton
-    ];
-
-    searchLinks.forEach(link => {
-      link.addEventListener('click', (event) => {
-        if (!gameInput.value) {
-          event.preventDefault();
-        }
+    
+    const allMainButtons = [searchButton, pinterestButton, menuButton];
+    allMainButtons.forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        button.style.setProperty('--mouse-x', `${x}px`);
+        button.style.setProperty('--mouse-y', `${y}px`);
       });
     });
 
