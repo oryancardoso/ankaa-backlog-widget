@@ -300,6 +300,7 @@
   <div id="toast"></div>
 
   <script>
+    const toastySound = document.getElementById('toasty-sound');
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
@@ -324,13 +325,15 @@
     };
 
     const copyGameName = (event) => {
-      event.preventDefault();
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      navigator.clipboard.writeText(gameName).then(() => {
-        showToast('Nome copiado!');
-      });
-    };
+  event.preventDefault();
+  const gameName = gameInput.value;
+  if (!gameName) return;
+
+  navigator.clipboard.writeText(gameName).then(() => {
+    showToast('Nome copiado!'); // Mostra a notificação
+    toastySound.play();      // TOCA O SOM!
+  });
+};
 
     const updateLinkHrefs = () => {
         const gameName = gameInput.value;
@@ -447,6 +450,7 @@
       toggleClearButton();
       updateLinkHrefs();
     });
+    <audio id="toasty-sound" src="/public/toasty.mp3" preload="auto"></audio>
 </script>
 </body>
 </html>
