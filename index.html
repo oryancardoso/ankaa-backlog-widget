@@ -7,8 +7,6 @@
   <title>Ankaa Games - Ferramentas</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-    /* --- VARIÁVEIS DE TEMA --- */
     :root {
       --bg-color: #0D0A0A;
       --text-color-primary: #FFFFFF;
@@ -19,7 +17,6 @@
       --footer-text: #888;
       --footer-link: #aaa;
     }
-
     body.light-theme {
       --bg-color: #F0F2F5;
       --text-color-primary: #0D0A0A;
@@ -30,8 +27,6 @@
       --footer-text: #555;
       --footer-link: #0D0A0A;
     }
-    /* --- FIM DAS VARIÁVEIS --- */
-
     body { 
       background-color: var(--bg-color);
       color: var(--text-color-primary); 
@@ -45,24 +40,20 @@
       overflow: hidden;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
-
     .container { 
       width: 100%; 
       max-width: 600px;
       text-align: center; 
     }
-
     .logo {
       width: 150px;
       margin-bottom: 20px;
       transition: all 0.3s ease;
     }
-
     .logo:hover {
       transform: scale(1.1);
       filter: drop-shadow(0 0 15px #FF007F); 
     }
-
     h1 { 
       color: var(--text-color-primary);
       font-weight: 600;
@@ -71,30 +62,30 @@
       letter-spacing: 2px;
       margin-bottom: 8px;
     }
-
     p { 
       color: var(--text-color-secondary);
       font-size: 1.1em;
       margin-bottom: 40px;
     }
-
     .search-wrapper {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-
     .search-container {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
+      flex-grow: 1;
     }
-    
     .input-wrapper {
       position: relative;
       display: flex;
       flex-grow: 1;
     }
-
     input { 
       width: 100%;
       padding: 15px 45px 15px 25px;
@@ -107,13 +98,11 @@
       font-size: 16px;
       transition: all 0.3s ease;
     }
-
     input:focus {
       outline: none;
       border-color: rgba(57, 255, 20, 0.5);
       box-shadow: 0 0 25px rgba(57, 255, 20, 0.4);
     }
-
     .clear-button {
       position: absolute;
       right: 10px;
@@ -132,13 +121,11 @@
       line-height: 1;
       z-index: 5;
     }
-
     .clear-button:hover {
       transform: translateY(-50%) scale(1.2);
       filter: drop-shadow(0 0 5px #FF007F);
     }
-
-    button { 
+    .button { 
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
@@ -154,18 +141,14 @@
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
+      text-decoration: none;
     }
-    
-    #searchButton, #pinterestButton {
-      border-radius: 0;
-    }
-    
+    #searchButton, #pinterestButton { border-radius: 0; }
     #menuButton {
       border-radius: 0 50px 50px 0;
       padding: 15px 20px;
     }
-    
-    button::before {
+    .button:hover::before {
       content: '';
       position: absolute;
       left: var(--mouse-x, 50%);
@@ -176,16 +159,10 @@
       transform: translate(-50%, -50%);
       transition: width 0.3s ease, height 0.3s ease;
     }
-
-    button:hover::before {
+    .button:hover:hover::before {
       width: 200px;
       height: 200px;
     }
-
-    .clear-button::before {
-        background: none;
-    }
-    
     .dropdown-menu {
       position: absolute;
       top: 110%;
@@ -205,18 +182,15 @@
       max-height: 180px;
       overflow-y: auto;
     }
-    
     body.light-theme .dropdown-menu {
       background-color: rgba(255, 255, 255, 0.8);
     }
-    
     .dropdown-menu.show {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-    
-    .dropdown-menu button {
+    .dropdown-menu a {
       display: block;
       width: 100%;
       text-align: left;
@@ -225,11 +199,9 @@
       margin-bottom: 5px;
       color: var(--input-text);
     }
-    
-    .dropdown-menu button:last-child {
+    .dropdown-menu a:last-child {
       margin-bottom: 0;
     }
-
     footer {
       margin-top: 50px;
       font-size: 0.9em;
@@ -239,26 +211,50 @@
       align-items: center;
       gap: 20px;
     }
-
     footer a {
       color: var(--footer-link);
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s ease;
     }
-
     footer a:hover {
       color: #FF007F;
     }
-    
     .theme-switcher {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 18px;
-      user-select: none;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 50%;
+        padding: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        transition: all 0.3s ease;
+    }
+    .theme-switcher:hover {
+        border-color: #FF007F;
+        box-shadow: 0 0 15px #FF007F66;
+    }
+    #toast {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #39FF14;
+      color: #0D0A0A;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
+      font-weight: 600;
+      z-index: 1000;
+      transition: bottom 0.5s ease;
+    }
+    #toast.show {
+      bottom: 30px;
     }
 </style>
 </head>
@@ -273,34 +269,35 @@
     <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
     
     <div class="search-wrapper">
+      <div class="theme-switcher" id="themeSwitcher">☀️</div>
       <div class="search-container">
         <div class="input-wrapper">
           <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
           <span class="clear-button" id="clearButton">&times;</span>
         </div>
-        <button id="searchButton">Tempo</button>
-        <button id="pinterestButton">Ícone</button>
-        <button id="menuButton">+</button>
+        <a href="#" class="button" id="searchButton" target="_blank">Tempo</a>
+        <a href="#" class="button" id="pinterestButton" target="_blank">Ícone</a>
+        <a href="#" class="button" id="menuButton">+</a>
         
         <div class="dropdown-menu" id="dropdownMenu">
-          <button id="copyButton">Copiar Nome</button>
-          <button id="metacriticButton">Notas (Metacritic)</button>
-          <button id="youtubeButton">Gameplay (YouTube)</button>
-          <button id="trailerButton">Trailer Oficial</button>
-          <button id="reviewButton">Reviews (Google)</button>
+          <a href="#" class="button" id="copyButton">Copiar Nome</a>
+          <a href="#" class="button" id="metacriticButton" target="_blank">Notas (Metacritic)</a>
+          <a href="#" class="button" id="youtubeButton" target="_blank">Gameplay (YouTube)</a>
+          <a href="#" class="button" id="trailerButton" target="_blank">Trailer Oficial</a>
+          <a href="#" class="button" id="reviewButton" target="_blank">Reviews (Google)</a>
         </div>
       </div>
     </div>
     
     <footer>
       <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
-      <div class="theme-switcher" id="themeSwitcher">☀️</div>
     </footer>
 
   </div>
 
+  <div id="toast"></div>
+
   <script>
-    // --- ELEMENTOS ---
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
@@ -313,63 +310,59 @@
     const reviewButton = document.getElementById('reviewButton');
     const clearButton = document.getElementById('clearButton');
     const themeSwitcher = document.getElementById('themeSwitcher');
-    const allButtons = [searchButton, pinterestButton, menuButton];
+    const toast = document.getElementById('toast');
+    const allButtons = [searchButton, pinterestButton, menuButton, copyButton, metacriticButton, youtubeButton, trailerButton, reviewButton];
 
-    // --- FUNÇÕES DE BUSCA ---
-    const searchOnHltb = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      window.open(`https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`, '_blank');
-    };
-    
-    const searchOnPinterest = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      const searchQuery = `${gameName} game cover art`;
-      window.open(`https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchQuery)}`, '_blank');
+    const showToast = (message) => {
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     };
 
-    const copyGameName = () => {
+    const copyGameName = (event) => {
+      event.preventDefault();
       const gameName = gameInput.value;
       if (!gameName) return;
       navigator.clipboard.writeText(gameName).then(() => {
-        copyButton.innerText = 'COPIADO!';
-        setTimeout(() => {
-          copyButton.innerText = 'COPIAR NOME';
-        }, 1500);
+        showToast('Nome copiado!');
       });
     };
-    
-    const searchOnMetacritic = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      window.open(`https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`, '_blank');
-    };
-    
-    const searchOnYoutube = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      const searchQuery = `${gameName} gameplay`;
-      window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`, '_blank');
-    };
 
-    const searchForTrailer = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      const searchQuery = `${gameName} official trailer`;
-      window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`, '_blank');
+    const updateLinkHrefs = () => {
+        const gameName = gameInput.value;
+        const baseHref = '#';
+
+        if (!gameName) {
+            searchButton.href = baseHref;
+            pinterestButton.href = baseHref;
+            metacriticButton.href = baseHref;
+            youtubeButton.href = baseHref;
+            trailerButton.href = baseHref;
+            reviewButton.href = baseHref;
+            return;
+        }
+
+        searchButton.href = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
+        pinterestButton.href = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(gameName + ' game cover art')}`;
+        metacriticButton.href = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
+        youtubeButton.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' gameplay')}`;
+        trailerButton.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' official trailer')}`;
+        reviewButton.href = `https://www.google.com/search?q=${encodeURIComponent(gameName + ' review')}`;
     };
     
-    const searchForReview = () => {
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      const searchQuery = `${gameName} review`;
-      window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`, '_blank');
-    };
-    
-    // --- LÓGICA DA UI ---
     const placeholders = [
-      'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2', 'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V', 'Ex.: Minecraft', 'Ex.: Terraria', 'Ex.: Portal 2', 'Ex.: The Last of Us Part I', 'Ex.: Hades', 'Ex.: Disco Elysium', 'Ex.: Mass Effect 2', 'Ex.: BioShock', 'Ex.: Bloodborne', 'Ex.: Dark Souls', 'Ex.: Sekiro: Shadows Die Twice', 'Ex.: Persona 5 Royal', 'Ex.: Final Fantasy VII Remake', 'Ex.: Chrono Trigger', 'Ex.: Super Metroid', 'Ex.: Castlevania: Symphony of the Night', 'Ex.: Metal Gear Solid', 'Ex.: Resident Evil 4', 'Ex.: Shadow of the Colossus', 'Ex.: The Elder Scrolls V: Skyrim', 'Ex.: Fallout: New Vegas', 'Ex.: Outer Wilds', 'Ex.: Celeste', 'Ex.: Undertale', 'Ex.: Journey', 'Ex.: Inside', 'Ex.: Limbo', 'Ex.: What Remains of Edith Finch', 'Ex.: Firewatch', 'Ex.: Life is Strange', 'Ex.: Nier: Automata', 'Ex.: Ori and the Blind Forest', 'Ex.: Dead Cells', 'Ex.: Slay the Spire', 'Ex.: Into the Breach', 'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
+      'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
+      'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
+      'Ex.: Minecraft', 'Ex.: Terraria', 'Ex.: Portal 2', 'Ex.: The Last of Us Part I', 'Ex.: Hades',
+      'Ex.: Disco Elysium', 'Ex.: Mass Effect 2', 'Ex.: BioShock', 'Ex.: Bloodborne', 'Ex.: Dark Souls',
+      'Ex.: Sekiro: Shadows Die Twice', 'Ex.: Persona 5 Royal', 'Ex.: Final Fantasy VII Remake', 'Ex.: Chrono Trigger', 'Ex.: Super Metroid',
+      'Ex.: Castlevania: Symphony of the Night', 'Ex.: Metal Gear Solid', 'Ex.: Resident Evil 4', 'Ex.: Shadow of the Colossus', 'Ex.: The Elder Scrolls V: Skyrim',
+      'Ex.: Fallout: New Vegas', 'Ex.: Outer Wilds', 'Ex.: Celeste', 'Ex.: Undertale', 'Ex.: Journey',
+      'Ex.: Inside', 'Ex.: Limbo', 'Ex.: What Remains of Edith Finch', 'Ex.: Firewatch', 'Ex.: Life is Strange',
+      'Ex.: Nier: Automata', 'Ex.: Ori and the Blind Forest', 'Ex.: Dead Cells', 'Ex.: Slay the Spire', 'Ex.: Into the Breach',
+      'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
     
@@ -385,9 +378,9 @@
         clearButton.style.display = 'none';
       }
     };
-
-    // --- EVENT LISTENERS ---
+    
     menuButton.addEventListener('click', (event) => {
+      event.preventDefault();
       event.stopPropagation();
       dropdownMenu.classList.toggle('show');
     });
@@ -398,26 +391,24 @@
       }
     });
 
-    searchButton.addEventListener('click', searchOnHltb);
-    pinterestButton.addEventListener('click', searchOnPinterest);
     copyButton.addEventListener('click', copyGameName);
-    metacriticButton.addEventListener('click', searchOnMetacritic);
-    youtubeButton.addEventListener('click', searchOnYoutube);
-    trailerButton.addEventListener('click', searchForTrailer);
-    reviewButton.addEventListener('click', searchForReview);
     
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
-            searchOnHltb();
+            searchButton.click();
         }
     });
-    
-    gameInput.addEventListener('input', toggleClearButton);
+
+    gameInput.addEventListener('input', () => {
+      toggleClearButton();
+      updateLinkHrefs();
+    });
     
     clearButton.addEventListener('click', () => {
       gameInput.value = '';
       gameInput.focus();
       toggleClearButton();
+      updateLinkHrefs();
     });
 
     allButtons.forEach(button => {
@@ -430,7 +421,6 @@
       });
     });
 
-    // --- LÓGICA DO TEMA ---
     themeSwitcher.addEventListener('click', () => {
       document.body.classList.toggle('light-theme');
       if (document.body.classList.contains('light-theme')) {
@@ -441,8 +431,7 @@
         localStorage.setItem('theme', 'dark');
       }
     });
-
-    // --- INICIALIZAÇÃO ---
+    
     document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-theme');
@@ -454,6 +443,7 @@
       gameInput.focus();
       setInterval(changePlaceholder, 4000);
       toggleClearButton();
+      updateLinkHrefs();
     });
 </script>
 </body>
