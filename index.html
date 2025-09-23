@@ -314,7 +314,6 @@
     const clearButton = document.getElementById('clearButton');
     const themeSwitcher = document.getElementById('themeSwitcher');
     const toast = document.getElementById('toast');
-    const toastySound = document.getElementById('toasty-sound');
     const allButtons = [searchButton, pinterestButton, menuButton, copyButton, metacriticButton, youtubeButton, trailerButton, reviewButton];
 
     const showToast = (message) => {
@@ -326,6 +325,13 @@
     };
 
     const copyGameName = (event) => {
+      event.preventDefault();
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      navigator.clipboard.writeText(gameName).then(() => {
+        showToast('Nome copiado!');
+      });
+    };
   event.preventDefault();
   const gameName = gameInput.value;
   if (!gameName) return;
@@ -335,16 +341,6 @@
     toastySound.play();      // TOCA O SOM!
   });
 };
-      event.preventDefault();
-      const gameName = gameInput.value;
-      if (!gameName) return;
-      navigator.clipboard.writeText(gameName).then(() => {
-        showToast('Nome copiado!');
-        if (toastySound) {
-          toastySound.play();
-        }
-      });
-    };
 
     const updateLinkHrefs = () => {
         const gameName = gameInput.value;
