@@ -314,7 +314,6 @@
     const themeSwitcher = document.getElementById('themeSwitcher');
     const toast = document.getElementById('toast');
     const toastySound = document.getElementById('toasty-sound');
-    const allButtons = [searchButton, pinterestButton, menuButton, copyButton, metacriticButton, youtubeButton, trailerButton, reviewButton];
 
     const showToast = (message) => {
       toast.innerText = message;
@@ -328,6 +327,11 @@
       event.preventDefault();
       const gameName = gameInput.value;
       if (!gameName) return;
+      
+      if (toastySound) {
+        toastySound.load(); 
+      }
+
       navigator.clipboard.writeText(gameName).then(() => {
         showToast('Nome copiado!');
         if (toastySound) {
@@ -417,13 +421,16 @@
       updateLinkHrefs();
     });
 
-    allButtons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        button.style.setProperty('--mouse-x', `${x}px`);
-        button.style.setProperty('--mouse-y', `${y}px`);
+    const searchLinks = [
+      searchButton, pinterestButton, metacriticButton, 
+      youtubeButton, trailerButton, reviewButton
+    ];
+
+    searchLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        if (!gameInput.value) {
+          event.preventDefault();
+        }
       });
     });
 
