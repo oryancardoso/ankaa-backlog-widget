@@ -314,8 +314,22 @@
     const themeSwitcher = document.getElementById('themeSwitcher');
     const toast = document.getElementById('toast');
     const toastySound = document.getElementById('toasty-sound');
-    const allButtons = [searchButton, pinterestButton, menuButton, copyButton, metacriticButton, youtubeButton, trailerButton, reviewButton];
+    const searchLinks = [
+      searchButton,
+      pinterestButton,
+      metacriticButton,
+      youtubeButton,
+      trailerButton,
+      reviewButton
+    ];
 
+    searchLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        if (!gameInput.value) {
+          event.preventDefault(); // Impede o link de abrir se o campo estiver vazio
+        }
+      });
+    });
     const showToast = (message) => {
       toast.innerText = message;
       toast.classList.add('show');
