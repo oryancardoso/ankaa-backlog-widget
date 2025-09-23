@@ -290,8 +290,6 @@
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
     <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
     
-    <div class="search-wrapper">
-      <div class="search-container">
         <div class="input-wrapper">
           <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
           <span class="clear-button" id="clearButton">&times;</span>
@@ -303,9 +301,7 @@
         <div class="dropdown-menu" id="dropdownMenu">
           <a href="#" class="button" id="copyButton">Copiar Nome</a>
           <a href="#" class="button" id="metacriticButton" target="_blank">Notas (Metacritic)</a>
-          <a href="#" class="button" id="youtubeButton" target="_blank">Gameplay (YouTube)</a>
-          <a href="#" class="button" id="trailerButton" target="_blank">Trailer Oficial</a>
-          <a href="#" class="button" id="reviewButton" target="_blank">Reviews (Google)</a>
+          ...
         </div>
       </div>
     </div>
@@ -354,8 +350,20 @@
 
     const updateLinkHrefs = () => {
         const gameName = gameInput.value;
-        if (!gameName) return;
+        const baseHref = '#';
 
+        // Se o campo estiver vazio, reseta os links
+        if (!gameName) {
+            searchButton.href = baseHref;
+            pinterestButton.href = baseHref;
+            metacriticButton.href = baseHref;
+            youtubeButton.href = baseHref;
+            trailerButton.href = baseHref;
+            reviewButton.href = baseHref;
+            return;
+        }
+
+        // Se tiver texto, monta as URLs de busca
         searchButton.href = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
         pinterestButton.href = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(gameName + ' game cover art')}`;
         metacriticButton.href = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
