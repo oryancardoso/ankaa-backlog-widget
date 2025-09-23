@@ -8,35 +8,9 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-    /* --- VARIÁVEIS DE TEMA (O CORAÇÃO DO MODO DUAL) --- */
-    :root {
-      --bg-color: #0D0A0A;
-      --text-color-primary: #FFFFFF;
-      --text-color-secondary: #b0b3b8;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --input-bg: #3a3b3c;
-      --input-text: #e4e6eb;
-      --footer-text: #888;
-      --footer-link: #aaa;
-    }
-
-    body.light-theme {
-      --bg-color: #F0F2F5;
-      --text-color-primary: #0D0A0A;
-      --text-color-secondary: #555;
-      --glass-bg: rgba(0, 0, 0, 0.03);
-      --glass-border: rgba(0, 0, 0, 0.1);
-      --input-bg: #FFFFFF;
-      --input-text: #0D0A0A;
-      --footer-text: #555;
-      --footer-link: #0D0A0A;
-    }
-    /* --- FIM DAS VARIÁVEIS DE TEMA --- */
-    
     body { 
-      background-color: var(--bg-color);
-      color: var(--text-color-primary); 
+      background-color: #0D0A0A;
+      color: #e4e6eb; 
       font-family: 'Poppins', sans-serif;
       margin: 0; 
       padding: 20px; 
@@ -45,7 +19,6 @@
       align-items: center; 
       min-height: 90vh; 
       overflow: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .container { 
@@ -66,7 +39,7 @@
     }
 
     h1 { 
-      color: var(--text-color-primary);
+      color: #FFFFFF;
       font-weight: 600;
       font-size: 2.2em;
       text-transform: uppercase;
@@ -75,7 +48,7 @@
     }
 
     p { 
-      color: var(--text-color-secondary);
+      color: #b0b3b8;
       font-size: 1.1em;
       margin-bottom: 40px;
     }
@@ -90,7 +63,7 @@
       align-items: center;
       position: relative;
     }
-    
+
     .input-wrapper {
       position: relative;
       display: flex;
@@ -99,13 +72,14 @@
 
     input { 
       width: 100%;
+      padding: 15px 45px 15px 25px; /* Padding direito para o 'x' */
       padding: 15px 45px 15px 25px;
       border-radius: 50px 0 0 50px; 
-      border: 1px solid var(--glass-border);
-      background-color: var(--glass-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      color: var(--input-text); 
+      color: #e4e6eb; 
       font-size: 16px;
       transition: all 0.3s ease;
     }
@@ -133,7 +107,6 @@
       transition: all 0.2s ease;
       line-height: 1;
       z-index: 5;
-      backdrop-filter: none;
     }
 
     .clear-button:hover {
@@ -141,33 +114,34 @@
       filter: drop-shadow(0 0 5px #FF007F);
     }
 
-    .button { 
+    button { 
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
       padding: 15px 25px; 
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-left: none;
-      background-color: var(--glass-bg);
+      background-color: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      color: var(--input-text);
+      color: #e4e6eb;
       font-size: 14px; 
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
-      text-decoration: none;
     }
-    
-    #searchButton, #pinterestButton { border-radius: 0; }
-    
+
+    #searchButton, #pinterestButton {
+      border-radius: 0;
+    }
+
     #menuButton {
       border-radius: 0 50px 50px 0;
       padding: 15px 20px;
     }
-    
-    .button:hover::before {
+
+    button::before {
       content: '';
       position: absolute;
       left: var(--mouse-x, 50%);
@@ -179,11 +153,16 @@
       transition: width 0.3s ease, height 0.3s ease;
     }
 
-    .button:hover:hover::before {
+    button:hover::before {
       width: 200px;
       height: 200px;
     }
-    
+
+    .clear-button::before {
+        background: none; /* Garante que o 'x' não herde o holofote verde */
+        background: none;
+    }
+
     .dropdown-menu {
       position: absolute;
       top: 110%;
@@ -191,7 +170,7 @@
       background-color: rgba(30, 30, 30, 0.9);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       padding: 10px;
       min-width: 220px;
@@ -204,42 +183,33 @@
       overflow-y: auto;
     }
 
-    body.light-theme .dropdown-menu {
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-    
     .dropdown-menu.show {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-    
-    .dropdown-menu a {
+
+    .dropdown-menu button {
       display: block;
       width: 100%;
       text-align: left;
       border-radius: 5px;
       border: none;
       margin-bottom: 5px;
-      color: var(--input-text);
     }
-    
-    .dropdown-menu a:last-child {
+
+    .dropdown-menu button:last-child {
       margin-bottom: 0;
     }
 
     footer {
       margin-top: 50px;
       font-size: 0.9em;
-      color: var(--footer-text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
+      color: #888;
     }
 
     footer a {
-      color: var(--footer-link);
+      color: #aaa;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s ease;
@@ -248,72 +218,45 @@
     footer a:hover {
       color: #FF007F;
     }
-    
-    .theme-switcher {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 20px;
-        padding: 5px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-    /* --- TOAST NOTIFICATION --- */
-    #toast {
-      position: fixed;
-      bottom: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #39FF14;
-      color: #0D0A0A;
-      padding: 16px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
-      font-weight: 600;
-      z-index: 1000;
-      transition: bottom 0.5s ease;
-    }
-
-    #toast.show {
-      bottom: 30px;
-    }
-    /* --- FIM DO TOAST --- */
 </style>
 </head>
 <body>
   <div class="container">
-    
+
     <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
       <img src="/public/logo.png" alt="Logo Ankaa Games" class="logo">
     </a>
-    
+
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
     <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
-    
+
+    <div class="search-wrapper">
+      <div class="search-container">
+
         <div class="input-wrapper">
           <input type="text" id="gameInput" placeholder="Digite o nome do jogo...">
           <span class="clear-button" id="clearButton">&times;</span>
         </div>
-        <a href="#" class="button" id="searchButton" target="_blank">Tempo</a>
-        <a href="#" class="button" id="pinterestButton" target="_blank">Ícone</a>
-        <a href="#" class="button" id="menuButton">+</a>
-        
+        <button id="searchButton">Tempo</button>
+        <button id="pinterestButton">Ícone</button>
+        <button id="menuButton">+</button>
+
         <div class="dropdown-menu" id="dropdownMenu">
-          <a href="#" class="button" id="copyButton">Copiar Nome</a>
-          <a href="#" class="button" id="metacriticButton" target="_blank">Notas (Metacritic)</a>
-          ...
+          <button id="copyButton">Copiar Nome</button>
+          <button id="metacriticButton">Notas (Metacritic)</button>
+          <button id="youtubeButton">Gameplay (YouTube)</button>
+          <button id="trailerButton">Trailer Oficial</button>
+          <button id="reviewButton">Reviews (Google)</button>
         </div>
+
       </div>
-    </div>
-    
+      </div>
+
     <footer>
       <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
-      <div class="theme-switcher" id="themeSwitcher">☀️</div>
     </footer>
 
   </div>
-
-  <div id="toast"></div>
 
   <script>
     const gameInput = document.getElementById('gameInput');
@@ -327,51 +270,65 @@
     const trailerButton = document.getElementById('trailerButton');
     const reviewButton = document.getElementById('reviewButton');
     const clearButton = document.getElementById('clearButton');
-    const themeSwitcher = document.getElementById('themeSwitcher');
-    const toast = document.getElementById('toast');
-    const allButtons = [searchButton, pinterestButton, menuButton, copyButton, metacriticButton, youtubeButton, trailerButton, reviewButton];
+    const allButtons = [searchButton, pinterestButton, menuButton];
 
-    const showToast = (message) => {
-      toast.innerText = message;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+    const searchOnHltb = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchUrl = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
+      window.open(searchUrl, '_blank');
     };
 
-    const copyGameName = (event) => {
-      event.preventDefault();
+    const searchOnPinterest = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} game cover art`;
+      const searchUrl = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    const copyGameName = () => {
       const gameName = gameInput.value;
       if (!gameName) return;
       navigator.clipboard.writeText(gameName).then(() => {
-        showToast('Nome copiado!');
+        copyButton.innerText = 'COPIADO!';
+        setTimeout(() => {
+          copyButton.innerText = 'COPIAR NOME';
+        }, 1500);
       });
     };
 
-    const updateLinkHrefs = () => {
-        const gameName = gameInput.value;
-        const baseHref = '#';
-
-        // Se o campo estiver vazio, reseta os links
-        if (!gameName) {
-            searchButton.href = baseHref;
-            pinterestButton.href = baseHref;
-            metacriticButton.href = baseHref;
-            youtubeButton.href = baseHref;
-            trailerButton.href = baseHref;
-            reviewButton.href = baseHref;
-            return;
-        }
-
-        // Se tiver texto, monta as URLs de busca
-        searchButton.href = `https://howlongtobeat.com/?q=${encodeURIComponent(gameName)}`;
-        pinterestButton.href = `https://www.pinterest.com/search/pins/?q=${encodeURIComponent(gameName + ' game cover art')}`;
-        metacriticButton.href = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
-        youtubeButton.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' gameplay')}`;
-        trailerButton.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' official trailer')}`;
-        reviewButton.href = `https://www.google.com/search?q=${encodeURIComponent(gameName + ' review')}`;
+    const searchOnMetacritic = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchUrl = `https://www.metacritic.com/search/${encodeURIComponent(gameName)}/`;
+      window.open(searchUrl, '_blank');
     };
-    
+
+    const searchOnYoutube = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} gameplay`;
+      const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    const searchForTrailer = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} official trailer`;
+      const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
+    const searchForReview = () => {
+      const gameName = gameInput.value;
+      if (!gameName) return;
+      const searchQuery = `${gameName} review`;
+      const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+      window.open(searchUrl, '_blank');
+    };
+
     const placeholders = [
       'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
       'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
@@ -385,12 +342,12 @@
       'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
-    
+
     const changePlaceholder = () => {
       gameInput.placeholder = placeholders[placeholderIndex];
       placeholderIndex = (placeholderIndex + 1) % placeholders.length;
     };
-    
+
     const toggleClearButton = () => {
       if (gameInput.value) {
         clearButton.style.display = 'block';
@@ -398,9 +355,8 @@
         clearButton.style.display = 'none';
       }
     };
-    
+
     menuButton.addEventListener('click', (event) => {
-      event.preventDefault();
       event.stopPropagation();
       dropdownMenu.classList.toggle('show');
     });
@@ -411,24 +367,27 @@
       }
     });
 
+    searchButton.addEventListener('click', searchOnHltb);
+    pinterestButton.addEventListener('click', searchOnPinterest);
     copyButton.addEventListener('click', copyGameName);
-    
+    metacriticButton.addEventListener('click', searchOnMetacritic);
+    youtubeButton.addEventListener('click', searchOnYoutube);
+    trailerButton.addEventListener('click', searchForTrailer);
+    reviewButton.addEventListener('click', searchForReview);
+
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
-            searchButton.click(); // Simula o clique no link
+            searchOnHltb();
         }
+        toggleClearButton();
     });
 
-    gameInput.addEventListener('input', () => {
-      toggleClearButton();
-      updateLinkHrefs();
-    });
-    
+    gameInput.addEventListener('input', toggleClearButton);
+
     clearButton.addEventListener('click', () => {
       gameInput.value = '';
       gameInput.focus();
       toggleClearButton();
-      updateLinkHrefs();
     });
 
     allButtons.forEach(button => {
@@ -441,26 +400,9 @@
       });
     });
 
-    themeSwitcher.addEventListener('click', () => {
-      document.body.classList.toggle('light-theme');
-      if (document.body.classList.contains('light-theme')) {
-        themeSwitcher.innerText = '🌙';
-        localStorage.setItem('theme', 'light');
-      } else {
-        themeSwitcher.innerText = '☀️';
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light-theme');
-      themeSwitcher.innerText = '🌙';
-    }
-    
     gameInput.focus();
     setInterval(changePlaceholder, 4000);
     toggleClearButton();
-    updateLinkHrefs();
 </script>
 </body>
 </html>
