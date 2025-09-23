@@ -241,20 +241,22 @@
     }
     #toast {
       position: fixed;
-      bottom: -100px;
+      top: -100px; /* MUDANÇA: Começa escondido ACIMA da tela */
       left: 50%;
       transform: translateX(-50%);
       background-color: #39FF14;
       color: #0D0A0A;
-      padding: 16px;
+      padding: 16px 25px;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
       font-weight: 600;
       z-index: 1000;
-      transition: bottom 0.5s ease;
+      transition: top 0.5s ease-in-out; /* MUDANÇA: Animação na propriedade 'top' */
+      user-select: none;
     }
+
     #toast.show {
-      bottom: 30px;
+      top: 30px; /* MUDANÇA: Posição final quando visível, 30px do topo */
     }
 </style>
 </head>
