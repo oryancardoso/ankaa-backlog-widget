@@ -37,7 +37,8 @@
       justify-content: center; 
       align-items: center; 
       min-height: 90vh; 
-      overflow-x: hidden;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .container { 
       width: 100%; 
@@ -205,6 +206,10 @@
       margin-top: 50px;
       font-size: 0.9em;
       color: var(--footer-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
     }
     footer a {
       color: var(--footer-link);
@@ -229,9 +234,6 @@
         width: 30px;
         height: 30px;
         transition: all 0.3s ease;
-        position: absolute;
-        top: 20px;
-        right: 20px;
     }
     .theme-switcher:hover {
         border-color: #FF007F;
@@ -239,77 +241,35 @@
     }
     #toast {
       position: fixed;
-      bottom: -100px;
+      top: -100px; /* MUDANÇA: Começa escondido ACIMA da tela */
       left: 50%;
       transform: translateX(-50%);
       background-color: #39FF14;
       color: #0D0A0A;
-      padding: 16px;
+      padding: 16px 25px;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
       font-weight: 600;
       z-index: 1000;
-      transition: bottom 0.5s ease;
-    }
-    #toast.show {
-      bottom: 30px;
+      transition: top 0.5s ease-in-out; /* MUDANÇA: Animação na propriedade 'top' */
+      user-select: none;
     }
 
-    /* --- REGRAS PARA CELULAR (DESIGN RESPONSIVO) --- */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.8em; /* Título menor */
-      }
-      p {
-        font-size: 1em; /* Parágrafo menor */
-      }
-      .search-container {
-        flex-direction: column; /* Empilha os itens */
-        gap: 10px; /* Cria um espaço entre a barra e os botões */
-      }
-      .input-wrapper {
-        width: 100%;
-      }
-      input {
-        border-radius: 50px; /* Input totalmente redondo */
-        padding-right: 45px; /* Mantém o espaço para o 'x' */
-      }
-      .clear-button {
-        right: 15px; /* Reposiciona o 'x' */
-      }
-      .button-group {
-        display: flex;
-        width: 100%;
-      }
-      .button {
-        flex-grow: 1; /* Faz os botões ocuparem o espaço igualmente */
-        padding: 15px 10px;
-        border-left: 1px solid var(--glass-border);
-      }
-      #searchButton {
-        border-radius: 50px 0 0 50px; /* Arredonda a ponta esquerda */
-        border-left: none;
-      }
-      #menuButton {
-        border-radius: 0 50px 50px 0; /* Arredonda a ponta direita */
-      }
-      .theme-switcher {
-        top: 15px;
-        right: 15px;
-      }
+    #toast.show {
+      top: 30px; /* MUDANÇA: Posição final quando visível, 30px do topo */
     }
 </style>
 </head>
 <body>
   <div class="container">
-    
+
     <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">
       <img src="/public/logo.png" alt="Logo Ankaa Games" class="logo">
     </a>
-    
+
     <h1>BUSCADOR DE TEMPO DE JOGO</h1>
     <p>Digite o nome de um jogo para buscar seu tempo, ícone ou outras opções.</p>
-    
+
     <div class="search-wrapper">
       <div class="theme-switcher" id="themeSwitcher">☀️</div>
       <div class="search-container">
@@ -320,7 +280,7 @@
         <a href="#" class="button" id="searchButton" target="_blank">Tempo</a>
         <a href="#" class="button" id="pinterestButton" target="_blank">Ícone</a>
         <a href="#" class="button" id="menuButton">+</a>
-        
+
         <div class="dropdown-menu" id="dropdownMenu">
           <a href="#" class="button" id="copyButton">Copiar Nome</a>
           <a href="#" class="button" id="metacriticButton" target="_blank">Notas (Metacritic)</a>
@@ -330,7 +290,7 @@
         </div>
       </div>
     </div>
-    
+
     <footer>
       <p>Uma ferramenta por <a href="https://www.youtube.com/@AnkaaGamesTV" target="_blank">Ankaa Games TV</a> | Siga no <a href="https://www.instagram.com/ankaagamestv/" target="_blank">Instagram</a></p>
     </footer>
@@ -340,6 +300,7 @@
   <div id="toast"></div>
 
   <script>
+    const toastySound = document.getElementById('toasty-sound');
     const gameInput = document.getElementById('gameInput');
     const searchButton = document.getElementById('searchButton');
     const pinterestButton = document.getElementById('pinterestButton');
@@ -365,6 +326,15 @@
     };
 
     const copyGameName = (event) => {
+  event.preventDefault();
+  const gameName = gameInput.value;
+  if (!gameName) return;
+
+  navigator.clipboard.writeText(gameName).then(() => {
+    showToast('Nome copiado!'); // Mostra a notificação
+    toastySound.play();      // TOCA O SOM!
+  });
+};
       event.preventDefault();
       const gameName = gameInput.value;
       if (!gameName) return;
@@ -397,7 +367,7 @@
         trailerButton.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' official trailer')}`;
         reviewButton.href = `https://www.google.com/search?q=${encodeURIComponent(gameName + ' review')}`;
     };
-    
+
     const placeholders = [
       'Ex.: The Witcher 3', 'Ex.: Elden Ring', 'Ex.: Baldur\'s Gate 3', 'Ex.: Hollow Knight', 'Ex.: Red Dead Redemption 2',
       'Ex.: Cyberpunk 2077', 'Ex.: Stardew Valley', 'Ex.: The Legend of Zelda: Tears of the Kingdom', 'Ex.: God of War Ragnarök', 'Ex.: Grand Theft Auto V',
@@ -411,12 +381,12 @@
       'Ex.: FTL: Faster Than Light', 'Ex.: Shovel Knight', 'Ex.: Cuphead', 'Ex.: Hollow Knight: Silksong'
     ];
     let placeholderIndex = 0;
-    
+
     const changePlaceholder = () => {
       gameInput.placeholder = placeholders[placeholderIndex];
       placeholderIndex = (placeholderIndex + 1) % placeholders.length;
     };
-    
+
     const toggleClearButton = () => {
       if (gameInput.value) {
         clearButton.style.display = 'block';
@@ -424,7 +394,7 @@
         clearButton.style.display = 'none';
       }
     };
-    
+
     menuButton.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -438,7 +408,7 @@
     });
 
     copyButton.addEventListener('click', copyGameName);
-    
+
     gameInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
             searchButton.click();
@@ -449,7 +419,7 @@
       toggleClearButton();
       updateLinkHrefs();
     });
-    
+
     clearButton.addEventListener('click', () => {
       gameInput.value = '';
       gameInput.focus();
@@ -477,7 +447,7 @@
         localStorage.setItem('theme', 'dark');
       }
     });
-    
+
     document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-theme');
@@ -485,12 +455,13 @@
       } else {
         themeSwitcher.innerText = '☀️';
       }
-      
+
       gameInput.focus();
       setInterval(changePlaceholder, 4000);
       toggleClearButton();
       updateLinkHrefs();
     });
+    <audio id="toasty-sound" src="/public/toasty.mp3" preload="auto"></audio>
 </script>
 </body>
 </html>
