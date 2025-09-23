@@ -37,8 +37,7 @@
       justify-content: center; 
       align-items: center; 
       min-height: 90vh; 
-      overflow: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
     .container { 
       width: 100%; 
@@ -206,10 +205,6 @@
       margin-top: 50px;
       font-size: 0.9em;
       color: var(--footer-text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
     }
     footer a {
       color: var(--footer-link);
@@ -234,6 +229,9 @@
         width: 30px;
         height: 30px;
         transition: all 0.3s ease;
+        position: absolute;
+        top: 20px;
+        right: 20px;
     }
     .theme-switcher:hover {
         border-color: #FF007F;
@@ -241,22 +239,64 @@
     }
     #toast {
       position: fixed;
-      top: -100px; /* MUDANÇA: Começa escondido ACIMA da tela */
+      bottom: -100px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #39FF14;
       color: #0D0A0A;
-      padding: 16px 25px;
+      padding: 16px;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(57, 255, 20, 0.4);
       font-weight: 600;
       z-index: 1000;
-      transition: top 0.5s ease-in-out; /* MUDANÇA: Animação na propriedade 'top' */
-      user-select: none;
+      transition: bottom 0.5s ease;
+    }
+    #toast.show {
+      bottom: 30px;
     }
 
-    #toast.show {
-      top: 30px; /* MUDANÇA: Posição final quando visível, 30px do topo */
+    /* --- REGRAS PARA CELULAR (DESIGN RESPONSIVO) --- */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8em; /* Título menor */
+      }
+      p {
+        font-size: 1em; /* Parágrafo menor */
+      }
+      .search-container {
+        flex-direction: column; /* Empilha os itens */
+        gap: 10px; /* Cria um espaço entre a barra e os botões */
+      }
+      .input-wrapper {
+        width: 100%;
+      }
+      input {
+        border-radius: 50px; /* Input totalmente redondo */
+        padding-right: 45px; /* Mantém o espaço para o 'x' */
+      }
+      .clear-button {
+        right: 15px; /* Reposiciona o 'x' */
+      }
+      .button-group {
+        display: flex;
+        width: 100%;
+      }
+      .button {
+        flex-grow: 1; /* Faz os botões ocuparem o espaço igualmente */
+        padding: 15px 10px;
+        border-left: 1px solid var(--glass-border);
+      }
+      #searchButton {
+        border-radius: 50px 0 0 50px; /* Arredonda a ponta esquerda */
+        border-left: none;
+      }
+      #menuButton {
+        border-radius: 0 50px 50px 0; /* Arredonda a ponta direita */
+      }
+      .theme-switcher {
+        top: 15px;
+        right: 15px;
+      }
     }
 </style>
 </head>
